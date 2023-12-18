@@ -23,6 +23,13 @@ class Tree {
     return root;
   }
 
+  #minValue(root = this.root) {
+    while (root.left != null) {
+      root = root.left;
+    }
+    return root;
+  }
+
   insert(value, root = this.root) {
     if (root === null) {
       root = new Node(value);
@@ -48,11 +55,36 @@ class Tree {
     } else if (root.key > value) {
       root.left = this.delete(value, root.left);
     } else {
-      // works only for leaf nodes UPDATE
-      root = null;
-      return null;
+      if (root.left === null) {
+        root = root.right;
+        return root;
+      }
+      if (root.right === null) {
+        root = root.left;
+        return root;
+      }
+      const minNode = this.#minValue(root.right);
+      root.key = minNode.key;
+      root.right = this.delete(root.key, root.right);
     }
     return root;
+  }
+
+  find(value, root = this.root) {
+    if (root === null) {
+      return null;
+    }
+    if (root.key < value) {
+      root.right = this.find(value, root.right);
+      return root.right;
+    }
+    if (root.key > value) {
+      root.left = this.find(value, root.left);
+      return root.left;
+    }
+    if (root.key === value) {
+      return root;
+    }
   }
 }
 
