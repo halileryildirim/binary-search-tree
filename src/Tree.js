@@ -38,6 +38,22 @@ class Tree {
     }
     return root;
   }
+
+  delete(value, root = this.root) {
+    if (root === null) {
+      return null;
+    }
+    if (root.key < value) {
+      root.right = this.delete(value, root.right);
+    } else if (root.key > value) {
+      root.left = this.delete(value, root.left);
+    } else {
+      // works only for leaf nodes UPDATE
+      root = null;
+      return null;
+    }
+    return root;
+  }
 }
 
 module.exports = Tree;
