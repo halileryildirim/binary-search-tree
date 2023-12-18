@@ -16,9 +16,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree(exampleArray);
-tree.insert(40);
-tree.delete(8);
-console.log(tree.find(5));
+// tree.insert(40);
+// tree.delete(8);
+console.log(tree.find(324));
 console.log(tree.levelOrder());
 console.log(tree.inOrder());
+console.log(tree.preOrder());
+console.log(tree.postOrder());
 prettyPrint(tree.root);

@@ -75,12 +75,12 @@ class Tree {
       return null;
     }
     if (root.key < value) {
-      root.right = this.find(value, root.right);
-      return root.right;
+      root = this.find(value, root.right);
+      return root;
     }
     if (root.key > value) {
-      root.left = this.find(value, root.left);
-      return root.left;
+      root = this.find(value, root.left);
+      return root;
     }
     if (root.key === value) {
       return root;
@@ -111,6 +111,26 @@ class Tree {
     if (root === null) return [];
 
     return [...this.inOrder(root.left), root.key, ...this.inOrder(root.right)];
+  }
+
+  preOrder(root = this.root) {
+    if (root === null) return [];
+
+    return [
+      root.key,
+      ...this.preOrder(root.left),
+      ...this.preOrder(root.right),
+    ];
+  }
+
+  postOrder(root = this.root) {
+    if (root === null) return [];
+
+    return [
+      ...this.postOrder(root.left),
+      ...this.postOrder(root.right),
+      root.key,
+    ];
   }
 }
 
