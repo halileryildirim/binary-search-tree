@@ -86,6 +86,32 @@ class Tree {
       return root;
     }
   }
+
+  levelOrder(array = [], queue = [], root = this.root) {
+    // Iteration way of levelOrder print
+    if (root === null) {
+      return null;
+    }
+    queue.push(root);
+    while (queue.length > 0) {
+      const current = queue[0];
+      array.push(current.key);
+      if (current.left != null) {
+        queue.push(current.left);
+      }
+      if (current.right != null) {
+        queue.push(current.right);
+      }
+      queue.shift();
+    }
+    return array;
+  }
+
+  inOrder(root = this.root) {
+    if (root === null) return [];
+
+    return [...this.inOrder(root.left), root.key, ...this.inOrder(root.right)];
+  }
 }
 
 module.exports = Tree;

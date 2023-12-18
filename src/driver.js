@@ -19,4 +19,6 @@ const tree = new Tree(exampleArray);
 tree.insert(40);
 tree.delete(8);
 console.log(tree.find(5));
+console.log(tree.levelOrder());
+console.log(tree.inOrder());
 prettyPrint(tree.root);
