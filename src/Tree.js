@@ -132,6 +132,41 @@ class Tree {
       root.key,
     ];
   }
+
+  height(root = this.root) {
+    if (root === null) return -1;
+
+    const leftHeight = this.height(root.left);
+    const rightHeight = this.height(root.right);
+    return Math.max((leftHeight, rightHeight) + 1);
+  }
+
+  depth(node, root = this.root, level = 0) {
+    if (!node) return null;
+    if (root === null) return 0;
+    if (root.key === node.key) return level;
+    const count = this.depth(node, root.left, level + 1);
+    if (count !== 0) return count;
+    return this.depth(node, root.right, level + 1);
+  }
+
+  isBalanced(root = this.root) {
+    if (root === null) return true;
+    const heightDiff = Math.abs(
+      this.height(root.left) - this.height(root.right)
+    );
+    return (
+      heightDiff <= 1 &&
+      this.isBalanced(root.left) &&
+      this.isBalanced(root.right)
+    );
+  }
+
+  reBalance() {
+    if (this.root === null) return;
+    const sorted = [...new Set(this.inOrder().sort((a, b) => a - b))];
+    this.root = this.#buildTree(sorted);
+  }
 }
 
 module.exports = Tree;
